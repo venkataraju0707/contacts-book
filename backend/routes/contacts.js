@@ -44,7 +44,7 @@ res.status(500).json({ message: 'Server error' });
 }
 });
 
-// PUT /:id - Update a contact
+
 router.put('/:id', async (req, res) => {
   try {
     const id = req.params.id;
