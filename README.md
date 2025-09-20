@@ -1,55 +1,63 @@
-# Contact Book
+# 📒 Contact Book
 
-A full-stack **Contact Book** web application to manage your contacts with a modern **React** frontend (Vite) and **Express/Node.js** backend using **MongoDB Atlas** as the database.
+A **full-stack Contact Book** web application to manage your contacts with a modern **React** frontend (Vite) and **Express/Node.js** backend using **MongoDB Atlas**.
 
 ---
 
-## Features
+## 🌟 Features
 
 - Add, list, and delete contacts
 - Email and phone number validation
 - Responsive and clean user interface
 - Data persisted to cloud MongoDB (Atlas)
+- Fully functional CRUD operations
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
-- **Frontend:** React + Vite  
-- **Backend:** Node.js + Express  
-- **Database:** MongoDB Atlas (Cloud)
+| Layer       | Technology        |
+|------------|-----------------|
+| Frontend   | React + Vite     |
+| Backend    | Node.js + Express|
+| Database   | MongoDB Atlas    |
 
 ---
 
-## Folder Structure
+## 📁 Folder Structure
 
 Contact Book/
 ├── contact-book-backend/
+│ ├── index.js
+│ ├── routes/
+│ ├── models/
 │ └── ... (Express + MongoDB code)
 ├── contact-book-frontend/
-│ └── ... (React + Vite code)
+│ ├── src/
+│ ├── public/
+│ └── package.json (React + Vite code)
 
 yaml
 Copy code
 
 ---
 
-## Setup Instructions
+## ⚡ Setup Instructions
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/venkataraju0707/contacts-book.git
 cd contact-book
-2. Run Backend
+2. Backend
 bash
 Copy code
 cd contact-book-backend
 npm install
 node index.js
-The backend server will start at http://localhost:5000.
+The backend will start at http://localhost:5000.
 
-3. Run Frontend
-Open a new terminal and run:
+3. Frontend
+Open a new terminal:
 
 bash
 Copy code
@@ -58,8 +66,8 @@ npm install
 npm run dev
 The frontend will start at http://localhost:5173.
 
-Usage
-Ensure the backend server is running at http://localhost:5000.
+🚀 Usage
+Make sure the backend server is running at http://localhost:5000.
 
 Open http://localhost:5173 in your browser.
 
