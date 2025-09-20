@@ -38,7 +38,7 @@ Copy code
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/SaiManohar-007/contact-book.git
+https://github.com/venkataraju0707/contacts-book
 cd contact-book
 2. Run Backend
 bash
@@ -46,7 +46,7 @@ Copy code
 cd contact-book-backend
 npm install
 node index.js
-The backend server will start at http://localhost:8080.
+The backend server will start at http://localhost:5000.
 
 3. Run Frontend
 Open a new terminal and run:
@@ -59,7 +59,7 @@ npm run dev
 The frontend will start at http://localhost:5173.
 
 Usage
-Ensure the backend server is running at http://localhost:8080.
+Ensure the backend server is running at http://localhost:5000.
 
 Open http://localhost:5173 in your browser.
 
