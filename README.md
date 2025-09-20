@@ -38,7 +38,7 @@ Copy code
 
 ### 1. Clone the repository
 ```bash
-https://github.com/venkataraju0707/contacts-book
+git clone https://github.com/venkataraju0707/contacts-book.git
 cd contact-book
 2. Run Backend
 bash
