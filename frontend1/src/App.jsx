@@ -56,12 +56,14 @@ function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     try {
       if (editingId) {
+         
         const res = await fetch(`${API_URL}/${editingId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -69,14 +71,15 @@ function App() {
         });
         if (res.ok) {
           const updated = await res.json();
-          setContacts(
-            contacts.map((c) => (c._id === editingId ? updated : c))
-          );
+          setContacts(contacts.map((c) => (c._id === editingId ? updated : c)));
           toast.success("Contact updated successfully!");
           setEditingId(null);
           setForm({ name: "", email: "", phone: "" });
+        } else {
+          toast.error("Failed to update contact");
         }
       } else {
+         
         const res = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -107,6 +110,7 @@ function App() {
     } catch {}
   };
 
+   
   const handleEdit = (contact) => {
     setForm({ name: contact.name, email: contact.email, phone: contact.phone });
     setEditingId(contact._id);
@@ -144,7 +148,6 @@ function App() {
     return pages;
   };
 
-  
   const groupedContacts = [...contacts]
     .sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0))
     .filter((c) =>
@@ -161,7 +164,6 @@ function App() {
 
         <div className="layout">
           <div className="contacts">
-            
             <input
               type="text"
               placeholder="Search..."
@@ -198,7 +200,8 @@ function App() {
                           <MdEdit />
                         </button>
                         <button
-                          onClick={() => handleDelete(contact._id)}
+                           type="submit"
+                          
                           className="delete-btn"
                         >
                           <MdDelete />
@@ -209,10 +212,7 @@ function App() {
                 </ul>
 
                 <div className="pagination">
-                  <button
-                    onClick={() => setPage(page - 1)}
-                    disabled={page === 1}
-                  >
+                  <button onClick={() => setPage(page - 1)} disabled={page === 1}>
                     Prev
                   </button>
                   {getPageNumbers().map((num, index) =>
@@ -228,10 +228,7 @@ function App() {
                       </button>
                     )
                   )}
-                  <button
-                    onClick={() => setPage(page + 1)}
-                    disabled={page === totalPages}
-                  >
+                  <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
                     Next
                   </button>
                 </div>

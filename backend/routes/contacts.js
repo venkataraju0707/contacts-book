@@ -44,6 +44,38 @@ res.status(500).json({ message: 'Server error' });
 }
 });
 
+// PUT /:id - Update a contact
+router.put('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, email, phone } = req.body;
+
+    if (!name || !email || !phone) {
+      return res.status(400).json({ message: 'Missing fields' });
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return res.status(400).json({ message: 'Invalid email' });
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      return res.status(400).json({ message: 'Phone must be 10 digits' });
+    }
+
+    const updated = await Contact.findByIdAndUpdate(
+      id,
+      { name, email, phone },
+      { new: true } // return the updated document
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
  
 router.delete('/:id', async (req, res) => {
