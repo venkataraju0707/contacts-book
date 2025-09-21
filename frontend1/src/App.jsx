@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEmail, MdPhone, MdStar, MdStarBorder, MdEdit, MdDelete } from "react-icons/md";
 
-const API_URL = "http://localhost:5000/contacts";
+const API_URL = "process.env.REACT_APP_API_URL;";
 
 function App() {
   const [contacts, setContacts] = useState([]);
