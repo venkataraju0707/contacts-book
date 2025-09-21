@@ -4,7 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEmail, MdPhone, MdStar, MdStarBorder, MdEdit, MdDelete } from "react-icons/md";
 
-const API_URL =import.meta.env.VITE_API_URL;
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -56,14 +57,12 @@ function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-   
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     try {
       if (editingId) {
-         
         const res = await fetch(`${API_URL}/${editingId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -79,7 +78,6 @@ function App() {
           toast.error("Failed to update contact");
         }
       } else {
-         
         const res = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -107,10 +105,11 @@ function App() {
         setContacts(contacts.filter((c) => c._id !== id));
         toast.success("Contact deleted successfully!");
       }
-    } catch {}
+    } catch {
+      toast.error("Failed to delete contact");
+    }
   };
 
-   
   const handleEdit = (contact) => {
     setForm({ name: contact.name, email: contact.email, phone: contact.phone });
     setEditingId(contact._id);
@@ -134,6 +133,7 @@ function App() {
   const getPageNumbers = () => {
     const maxVisible = 5;
     let pages = [];
+
     if (totalPages <= maxVisible) {
       pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     } else {
@@ -145,15 +145,17 @@ function App() {
         pages = [1, "...", page - 1, page, page + 1, "...", totalPages];
       }
     }
+
     return pages;
   };
 
   const groupedContacts = [...contacts]
     .sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0))
-    .filter((c) =>
-      c.name.toLowerCase().includes(search.toLowerCase()) ||
-      c.email.toLowerCase().includes(search.toLowerCase()) ||
-      c.phone.includes(search)
+    .filter(
+      (c) =>
+        c.name.toLowerCase().includes(search.toLowerCase()) ||
+        c.email.toLowerCase().includes(search.toLowerCase()) ||
+        c.phone.includes(search)
     );
 
   return (
@@ -182,9 +184,13 @@ function App() {
                       <div>
                         <strong>{contact.name}</strong>
                         <br />
-                        <small><MdEmail /> {contact.email}</small>
+                        <small>
+                          <MdEmail /> {contact.email}
+                        </small>
                         <br />
-                        <small><MdPhone /> {contact.phone}</small>
+                        <small>
+                          <MdPhone /> {contact.phone}
+                        </small>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
                         <button
@@ -200,8 +206,7 @@ function App() {
                           <MdEdit />
                         </button>
                         <button
-                           type="submit"
-                          
+                          onClick={() => handleDelete(contact._id)}
                           className="delete-btn"
                         >
                           <MdDelete />
@@ -212,12 +217,17 @@ function App() {
                 </ul>
 
                 <div className="pagination">
-                  <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+                  <button
+                    onClick={() => setPage(Math.max(1, page - 1))}
+                    disabled={page === 1}
+                  >
                     Prev
                   </button>
                   {getPageNumbers().map((num, index) =>
                     num === "..." ? (
-                      <span key={index} className="dots">...</span>
+                      <span key={index} className="dots">
+                        ...
+                      </span>
                     ) : (
                       <button
                         key={num}
@@ -228,7 +238,10 @@ function App() {
                       </button>
                     )
                   )}
-                  <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
+                  <button
+                    onClick={() => setPage(Math.min(totalPages, page + 1))}
+                    disabled={page === totalPages}
+                  >
                     Next
                   </button>
                 </div>
